@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sovio</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary: #008EE5;
+            --primary-glow: rgba(0, 142, 229, 0.4);
+            --bg-deep: #010811;
+            --bg-card: #083951;
+            --glass: rgba(8, 57, 124, 0.2);
+            --text-main: #ffffff;
+            --text-dim: #CADDEC;
+            --border: rgba(0, 142, 229, 0.2);
+            --ease: cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; outline: none; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 25px; }
+
+        /* Interactive Navigation */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 30px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(1, 8, 17, 0.8);
+            backdrop-filter: blur(10px);
+        }
+
+        .logo { font-weight: 800; font-size: 1.5rem; color: var(--text-main); text-decoration: none; }
+        .logo span { color: var(--primary); }
+
+        .nav-links { display: flex; gap: 30px; list-style: none; }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+        .nav-links a:hover { color: var(--primary); }
+
+        /* Hero Section */
+        .hero {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 50px;
+            padding: 80px 0;
+            align-items: center;
+        }
+
+        .hero-text h1 { font-size: clamp(2.5rem, 6vw, 4rem); line-height: 1.1; margin-bottom: 10px; }
+        .hero-text p { font-size: 1.2rem; color: var(--text-dim); margin-bottom: 30px; max-width: 500px; }
+
+        /* Button Styling */
+        .cta-group { display: flex; gap: 15px; flex-wrap: wrap; }
+        .btn-primary {
+            display: inline-block;
+            padding: 15px 30px;
+            background: var(--primary);
+            color: #000;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 700;
+            box-shadow: 0 10px 20px var(--primary-glow);
+            transition: 0.3s var(--ease);
+        }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 15px 25px var(--primary-glow); }
+
+        .btn-secondary {
+            display: inline-block;
+            padding: 15px 30px;
+            background: var(--glass);
+            color: var(--text-main);
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            border: 1px solid var(--border);
+            transition: 0.3s var(--ease);
+        }
+        .btn-secondary:hover { background: rgba(0, 142, 229, 0.1); border-color: var(--primary); }
+
+        /* Hover-Interactive Access Card */
+        .card-wrapper { perspective: 1000px; }
+        .access-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+            transform-style: preserve-3d;
+            transition: transform 0.1s ease;
+            position: relative;
+        }
+
+        .access-card::before {
+            content: 'IDENTITY ACCESS';
+            position: absolute; top: 15px; left: 0; right: 0;
+            font-size: 0.6rem; letter-spacing: 4px; opacity: 0.4;
+        }
+
+        .profile-img {
+            width: 180px; height: 180px;
+            border-radius: 50%;
+            border: 5px solid var(--primary);
+            margin: 20px auto;
+            object-fit: cover;
+            display: block;
+            box-shadow: 0 0 30px var(--primary-glow);
+        }
+
+        /* Experience & Section Reveals */
+        section { padding: 100px 0; opacity: 0; transform: translateY(30px); transition: all 0.8s var(--ease); }
+        section.visible { opacity: 1; transform: translateY(0); }
+
+        h2 { font-size: 2rem; margin-bottom: 40px; display: flex; align-items: center; gap: 15px; }
+        h2::after { content: ''; height: 1px; flex: 1; background: var(--border); }
+
+        .timeline-item {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: 0.3s;
+            cursor: default;
+        }
+        .timeline-item:hover { background: rgba(0, 142, 229, 0.1); border-color: var(--primary); transform: translateX(10px); }
+
+        /* Responsive Tech Stack */
+        .stack-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        .stack-box {
+            background: var(--bg-card);
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+        }
+        .tag-cloud { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 15px; }
+        .tag {
+            background: rgba(255,255,255,0.05);
+            padding: 6px 15px;
+            border-radius: 100px;
+            font-size: 0.85rem;
+            transition: 0.3s;
+        }
+        .tag:hover { background: var(--primary); color: var(--bg-deep); font-weight: 600; }
+
+        /* Footer Interaction */
+        footer { padding: 60px 0; text-align: center; border-top: 1px solid var(--border); }
+        .social-links { display: flex; justify-content: center; gap: 25px; margin-bottom: 20px; }
+        .social-links a { 
+            color: var(--text-dim); font-size: 1.8rem; transition: 0.3s; 
+        }
+        .social-links a:hover { color: var(--primary); transform: scale(1.2) rotate(5deg); }
+
+        /* MOBILE OPTIMIZATIONS */
+        @media (max-width: 900px) {
+            .hero { grid-template-columns: 1fr; text-align: center; padding-top: 40px; }
+            .hero-text p { margin-left: auto; margin-right: auto; }
+            .cta-group { justify-content: center; }
+            .card-wrapper { margin: 0 auto; width: 100%; max-width: 320px; }
+            .nav-links { display: none; }
+            .timeline-item { flex-direction: column; text-align: center; gap: 10px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <nav>
+            <a href="#" class="logo">Sovio<span>.</span></a>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#stack">Stack</a></li>
+                <li><a href="mailto:hello@mariel.dev">Contact</a></li>
+            </ul>
+        </nav>
+
+        <section class="hero visible" id="home" style="opacity: 1; transform: none;">
+            <div class="hero-text">
+                <h1>Mariel Sobiono</h1>
+                <p>Software Engineer & Strategic Marketer. Specializing in high-performance systems and data-driven social growth.</p>
+                <div class="cta-group">
+                    <a href="mailto:contact@mariel.dev" class="btn-primary">Start a Conversation</a>
+                    <a href="creative.html" class="btn-secondary">View Creative Portfolio</a>
+                </div>
+            </div>
+
+            <div class="card-wrapper">
+                <div class="access-card" id="tilt-card">
+                    <img src="img.jpg" alt="Mariel Sobiono" class="profile-img">
+                    <h3 style="letter-spacing: 2px; margin-bottom: 5px;">MARIEL SOBIONO</h3>
+                    <p style="color: var(--primary); font-size: 0.8rem; font-weight: 700; text-transform: uppercase;">Software Engineer | SMM | Affiliate</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="about">
+            <h2>About Me</h2>
+            <p class="about-text" style="font-size: 1.2rem; color: var(--text-dim); max-width: 800px; margin-bottom: 20px;">
+                I bridge the gap between technical excellence and digital storytelling. As a <b>Social Media Manager and Affiliate Strategist</b>, I use my engineering background to optimize conversion funnels and build high-engagement communities.
+            </p>
+            <p class="about-text" style="font-size: 1.2rem; color: var(--text-dim); max-width: 800px;">
+                Whether I'm architecting <b>PHP & MySQL</b> backends or managing multi-platform social campaigns, my focus remains the same: <b>performance and scalability.</b>
+            </p>
+        </section>
+
+        <section id="experience">
+            <h2>Professional Path</h2>
+            
+            <div class="timeline-item">
+                <div>
+                    <h3 style="color: var(--primary);">SMM & Affiliate Strategist</h3>
+                    <p>Independent Brand Consultant</p>
+                </div>
+                <div style="font-weight: 800;">2024 - PRES</div>
+            </div>
+
+            <div class="timeline-item">
+                <div>
+                    <h3 style="color: var(--primary);">Senior Software Lead</h3>
+                    <p>Global Engineering Hub</p>
+                </div>
+                <div style="font-weight: 800;">2025 - PRES</div>
+            </div>
+
+            <div class="timeline-item">
+                <div>
+                    <h3 style="color: var(--primary);">Full-Stack Developer</h3>
+                    <p>Tech Innovators Manila</p>
+                </div>
+                <div style="font-weight: 800;">2023 - 2025</div>
+            </div>
+        </section>
+
+        <section id="stack">
+            <h2>The Tech & Growth Stack</h2>
+            <div class="stack-grid">
+                <div class="stack-box">
+                    <h4 style="color: var(--primary); margin-bottom: 10px;">ENGINEERING</h4>
+                    <div class="tag-cloud">
+                        <span class="tag">PHP</span><span class="tag">JavaScript</span>
+                        <span class="tag">Python</span><span class="tag">MySQL</span>
+                        <span class="tag">C++</span><span class="tag">HTML/CSS</span>
+                    </div>
+                </div>
+                <div class="stack-box">
+                    <h4 style="color: var(--primary); margin-bottom: 10px;">MARKETING & STRATEGY</h4>
+                    <div class="tag-cloud">
+                        <span class="tag">Social Media Management</span>
+                        <span class="tag">Affiliate Marketing</span>
+                        <span class="tag">Conversion Optimization</span>
+                        <span class="tag">Content Strategy</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <div class="social-links">
+                <a href="https://github.com/Sobiono-k"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/mariel-sobiono"><i class="fab fa-linkedin"></i></a>
+                <a href="https://www.instagram.com/kielsovio_"><i class="fab fa-instagram"></i></a>
+            </div>
+            <p style="opacity: 0.4; font-size: 0.8rem;">&copy; 2026 Mariel Sobiono. Built for Performance.</p>
+        </footer>
+
+    </div>
+
+    <script>
+        // 1. 3D Card Tilt Effect
+        const card = document.getElementById('tilt-card');
+        document.addEventListener('mousemove', (e) => {
+            const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
+            const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+            card.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+        });
+
+        // 2. Scroll Reveal Animation
+        const observerOptions = { threshold: 0.15 };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section').forEach(section => observer.observe(section));
+    </script>
+</body>
+</html>

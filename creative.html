@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creative Showcases | Mariel Sobiono</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary: #008EE5;
+            --primary-glow: rgba(0, 142, 229, 0.4);
+            --bg-deep: #010811;
+            --bg-card: #083951;
+            --glass: rgba(8, 57, 124, 0.2);
+            --text-main: #ffffff;
+            --text-dim: #CADDEC;
+            --border: rgba(0, 142, 229, 0.2);
+            --ease: cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; outline: none; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 25px; }
+
+        /* Header / Navigation */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 40px 0;
+        }
+
+        .back-btn {
+            text-decoration: none;
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.3s var(--ease);
+        }
+        .back-btn:hover { color: var(--primary); transform: translateX(-5px); }
+
+        .title-area h1 { font-size: 2.5rem; font-weight: 800; }
+        .title-area span { color: var(--primary); }
+
+        /* Creative Intro */
+        .intro-text {
+            max-width: 600px;
+            color: var(--text-dim);
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+        }
+
+        /* Filter Controls */
+        .filter-controls {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            color: var(--text-dim);
+            padding: 10px 24px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: 0.3s var(--ease);
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--primary);
+            color: #000;
+            border-color: var(--primary);
+            box-shadow: 0 5px 15px var(--primary-glow);
+        }
+
+        /* Portfolio Grid (Masonry-inspired Flex/Grid style) */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 30px;
+            margin-bottom: 80px;
+        }
+
+        .work-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: 0.4s var(--ease);
+        }
+
+        .work-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--primary);
+            box-shadow: 0 15px 35px rgba(0, 142, 229, 0.15);
+        }
+
+        .card-img-wrapper {
+            position: relative;
+            width: 100%;
+            height: 220px;
+            overflow: hidden;
+            background: #041c29;
+        }
+
+        .card-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.5s var(--ease);
+        }
+
+        .work-card:hover .card-img-wrapper img {
+            transform: scale(1.06);
+        }
+
+        .badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: rgba(1, 8, 17, 0.85);
+            backdrop-filter: blur(5px);
+            color: var(--primary);
+            border: 1px solid var(--border);
+            padding: 4px 14px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .card-content {
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .card-content h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .card-content p {
+            color: var(--text-dim);
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .card-metrics {
+            display: flex;
+            gap: 15px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            margin-bottom: 20px;
+        }
+
+        .metric {
+            font-size: 0.85rem;
+            color: var(--text-main);
+        }
+        .metric i { color: var(--primary); margin-right: 5px; }
+
+        .view-details-btn {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            padding: 12px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: center;
+            width: 100%;
+            transition: 0.3s var(--ease);
+        }
+
+        .view-details-btn:hover {
+            background: rgba(0, 142, 229, 0.1);
+            border-color: var(--primary);
+        }
+
+        /* Details Dynamic Modal */
+        .modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(1, 8, 17, 0.9);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: 0.4s var(--ease);
+            padding: 20px;
+        }
+
+        .modal.open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-content {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            max-width: 650px;
+            width: 100%;
+            border-radius: 24px;
+            padding: 35px;
+            position: relative;
+            transform: scale(0.9);
+            transition: 0.4s var(--ease);
+        }
+
+        .modal.open .modal-content {
+            transform: scale(1);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            background: transparent;
+            border: none;
+            color: var(--text-dim);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .close-modal:hover { color: var(--primary); }
+
+        .modal-body h2 { margin-bottom: 15px; font-size: 1.8rem; }
+        .modal-body img { width: 100%; height: 250px; object-fit: cover; border-radius: 14px; margin-bottom: 20px; border: 1px solid var(--border); }
+        .modal-body p { color: var(--text-dim); margin-bottom: 25px; }
+        
+        .modal-cta {
+            display: inline-block;
+            background: var(--primary);
+            color: #000;
+            padding: 14px 28px;
+            border-radius: 12px;
+            font-weight: 700;
+            text-decoration: none;
+            box-shadow: 0 8px 20px var(--primary-glow);
+            transition: 0.3s;
+        }
+        .modal-cta:hover { transform: translateY(-2px); box-shadow: 0 12px 25px var(--primary-glow); }
+
+        footer { padding: 60px 0; text-align: center; border-top: 1px solid var(--border); }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 768px) {
+            .portfolio-grid { grid-template-columns: 1fr; }
+            .title-area h1 { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <header>
+            <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> Systems Engineering</a>
+            <div class="title-area">
+                <h1>Creative Studio<span>.</span></h1>
+            </div>
+        </header>
+
+        <p class="intro-text">
+            Where conversion data dictates aesthetic choices. High-impact content architecture built for communities that buy, click, and scale.
+        </p>
+
+        <!-- Category Filters -->
+        <div class="filter-controls">
+            <button class="filter-btn active" onclick="filterWork('all')">All Showcases</button>
+            <button class="filter-btn" onclick="filterWork('webdev')">Web Development</button>
+            <button class="filter-btn" onclick="filterWork('smm')">Social Media Management</button>
+            <button class="filter-btn" onclick="filterWork('affiliate')">Affiliate Marketing</button>
+        </div>
+
+        <!-- Portfolio Cards Grid -->
+        <div class="portfolio-grid">
+
+            <!-- Card 1: Web Development Showcase -->
+            <div class="work-card" data-category="webdev">
+                <div class="card-img-wrapper">
+                    <span class="badge">Web Dev</span>
+                    <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='250' viewBox='0 0 400 250'><rect width='100%' height='100%' fill='%23041c29'/><text x='50%' y='50%' fill='%23008EE5' font-weight='bold' font-family='sans-serif' font-size='20' text-anchor='middle'>Dynamic Map UI Matrix</text></svg>" alt="Web Development Project">
+                </div>
+                <div class="card-content">
+                    <h3>LAU Heatmap Matrix</h3>
+                    <p>Engineered a high-performance geographic analytics canvas utilizing custom scripts to parse and render localized activity records smoothly.</p>
+                    <div class="card-metrics">
+                        <span class="metric"><i class="fas fa-code"></i> initHeatmap()</span>
+                        <span class="metric"><i class="fas fa-bolt"></i> 60 FPS Render</span>
+                    </div>
+                    <button class="view-details-btn" onclick="openModal('LAU Heatmap Matrix', 'Developed a specialized rendering solution optimized for neighborhood-level administrative units. This feature dynamically maps raw data densities across regional zones using zero-latency array processing.', '#')">Inspect Codebase</button>
+                </div>
+            </div>
+
+            <!-- Card 2: SMM Case Study -->
+            <div class="work-card" data-category="smm">
+                <div class="card-img-wrapper">
+                    <span class="badge">SMM Campaign</span>
+                    <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='250' viewBox='0 0 400 250'><rect width='100%' height='100%' fill='%23041c29'/><text x='50%' y='50%' fill='%23008EE5' font-weight='bold' font-family='sans-serif' font-size='20' text-anchor='middle'>SMM Strategy Layout</text></svg>" alt="Brand Campaign">
+                </div>
+                <div class="card-content">
+                    <h3>SaaS Brand Scale</h3>
+                    <p>Designed a cross-platform visual sequence to translate backend technical benefits into relatable, high-engagement content loops.</p>
+                    <div class="card-metrics">
+                        <span class="metric"><i class="fas fa-chart-line"></i> +142% Reach</span>
+                        <span class="metric"><i class="fas fa-users"></i> 12k Organic</span>
+                    </div>
+                    <button class="view-details-btn" onclick="openModal('SaaS Brand Scale', 'Full optimization execution layout detailing graphic identity transformation, automation triggers for inbound lead collection, and interactive story scripts.', '#')">Review Strategy</button>
+                </div>
+            </div>
+
+            <!-- Card 3: Affiliate Marketing -->
+            <div class="work-card" data-category="affiliate">
+                <div class="card-img-wrapper">
+                    <span class="badge">Affiliate System</span>
+                    <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='250' viewBox='0 0 400 250'><rect width='100%' height='100%' fill='%23041c29'/><text x='50%' y='50%' fill='%23008EE5' font-weight='bold' font-family='sans-serif' font-size='20' text-anchor='middle'>Funnel Map Architecture</text></svg>" alt="Affiliate Funnel">
+                </div>
+                <div class="card-content">
+                    <h3>High-Ticket Tech Bridge</h3>
+                    <p>Built a content-to-conversion funnel connecting developer tooling products with organic software development circles.</p>
+                    <div class="card-metrics">
+                        <span class="metric"><i class="fas fa-percentage"></i> 4.8% CR</span>
+                        <span class="metric"><i class="fas fa-wallet"></i> Passive Pipeline</span>
+                    </div>
+                    <button class="view-details-btn" onclick="openModal('High-Ticket Tech Bridge', 'Engineered custom product-matching link bridges using smart data context tracking to identify high-converting platforms.', '#')">Inspect Funnel</button>
+                </div>
+            </div>
+
+            <!-- Card 4: SMM Visual Production -->
+            <div class="work-card" data-category="smm">
+                <div class="card-img-wrapper">
+                    <span class="badge">Content Batching</span>
+                    <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='250' viewBox='0 0 400 250'><rect width='100%' height='100%' fill='%23041c29'/><text x='50%' y='50%' fill='%23008EE5' font-weight='bold' font-family='sans-serif' font-size='20' text-anchor='middle'>Creative Production Grid</text></svg>" alt="Content Asset">
+                </div>
+                <div class="card-content">
+                    <h3>FinTech Aesthetic Engine</h3>
+                    <p>Curated minimalist design languages and content assets designed to simplify difficult financial definitions on Instagram and LinkedIn.</p>
+                    <div class="card-metrics">
+                        <span class="metric"><i class="fas fa-share"></i> 3.2k Saves</span>
+                        <span class="metric"><i class="fas fa-bolt"></i> Speed Matrix</span>
+                    </div>
+                    <button class="view-details-btn" onclick="openModal('FinTech Aesthetic Engine', 'A breakdown of strategic style rules, automated dynamic assets template generation, and graphic palettes implemented across a 90-day campaign rollout.', '#')">View Assets</button>
+                </div>
+            </div>
+
+        </div>
+
+        <footer>
+            <p style="opacity: 0.4; font-size: 0.8rem;">&copy; 2026 Mariel Sobiono. Performance Design Engineered.</p>
+        </footer>
+    </div>
+
+    <!-- Details Interaction Modal -->
+    <div class="modal" id="detailsModal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal()"><i class="fas fa-times"></i></button>
+            <div class="modal-body">
+                <h2 id="modalTitle">Project Title</h2>
+                <img id="modalImg" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='250' viewBox='0 0 600 250'><rect width='100%' height='100%' fill='%23041c29'/></svg>" alt="Preview">
+                <p id="modalDesc">Detailed explanation text will change depending on your selection.</p>
+                <a href="#" id="modalLink" class="modal-cta" target="_blank">Launch Live Blueprint</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Filter Projects Feature
+        function filterWork(category) {
+            // Update active buttons
+            const buttons = document.querySelectorAll('.filter-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            
+            // Find the button that triggered the event to make it active
+            if(window.event) {
+                window.event.target.classList.add('active');
+            }
+
+            // Toggle cards visibility
+            const cards = document.querySelectorAll('.work-card');
+            cards.forEach(card => {
+                if (category === 'all' || card.getAttribute('data-category') === category) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Modal Controls
+        const modal = document.getElementById('detailsModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalDesc = document.getElementById('modalDesc');
+        const modalLink = document.getElementById('modalLink');
+
+        function openModal(title, description, linkUrl) {
+            modalTitle.innerText = title;
+            modalDesc.innerText = description;
+            modalLink.href = linkUrl;
+            modal.classList.add('open');
+        }
+
+        function closeModal() {
+            modal.classList.remove('open');
+        }
+
+        // Close modal if user clicks outside content structure
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>
