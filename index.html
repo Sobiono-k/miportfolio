@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sovio</title>
+    <title>Sovio | Mariel Sobiono</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <style>
@@ -36,7 +36,7 @@
 
         .container { max-width: 1100px; margin: 0 auto; padding: 0 25px; }
 
-        /* Interactive Navigation */
+        /* Navigation */
         nav {
             display: flex;
             justify-content: space-between;
@@ -154,7 +154,9 @@
         .timeline-item:hover { background: rgba(0, 142, 229, 0.1); border-color: var(--primary); transform: translateX(10px); }
 
         /* Responsive Tech Stack */
+        .stack-flex-container { display: flex; flex-direction: column; gap: 20px; }
         .stack-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        
         .stack-box {
             background: var(--bg-card);
             padding: 30px;
@@ -197,10 +199,11 @@
         <nav>
             <a href="#" class="logo">Sovio<span>.</span></a>
             <ul class="nav-links">
-                <li><a href="#about">About</a></li>
+                <li><a href="index.html">Home</a></li>
                 <li><a href="#experience">Experience</a></li>
                 <li><a href="#stack">Stack</a></li>
-                <li><a href="mailto:hello@mariel.dev">Contact</a></li>
+                <li><a href="creative.html">Creative</a></li>
+                <li><a href="contact.html">Contact</a></li>
             </ul>
         </nav>
 
@@ -209,12 +212,12 @@
                 <h1>Mariel Sobiono</h1>
                 <p>Software Engineer & Strategic Marketer. Specializing in high-performance systems and data-driven social growth.</p>
                 <div class="cta-group">
-                    <a href="mailto:contact@mariel.dev" class="btn-primary">Start a Conversation</a>
+                    <a href="SOBIONO_resume.pdf" download="SOBIONO_resume.pdf" class="btn-primary">Download Resume</a>
                     <a href="creative.html" class="btn-secondary">View Creative Portfolio</a>
                 </div>
             </div>
 
-            <div class="card-wrapper">
+            <div class="card-wrapper" id="card-container">
                 <div class="access-card" id="tilt-card">
                     <img src="img.jpg" alt="Mariel Sobiono" class="profile-img">
                     <h3 style="letter-spacing: 2px; margin-bottom: 5px;">MARIEL SOBIONO</h3>
@@ -263,22 +266,24 @@
 
         <section id="stack">
             <h2>The Tech & Growth Stack</h2>
-            <div class="stack-grid">
-                <div class="stack-box">
-                    <h4 style="color: var(--primary); margin-bottom: 10px;">ENGINEERING</h4>
-                    <div class="tag-cloud">
-                        <span class="tag">PHP</span><span class="tag">JavaScript</span>
-                        <span class="tag">Python</span><span class="tag">MySQL</span>
-                        <span class="tag">C++</span><span class="tag">HTML/CSS</span>
+            <div class="stack-flex-container">
+                <div class="stack-grid">
+                    <div class="stack-box">
+                        <h4 style="color: var(--primary); margin-bottom: 10px;">ENGINEERING</h4>
+                        <div class="tag-cloud">
+                            <span class="tag">PHP</span><span class="tag">JavaScript</span>
+                            <span class="tag">Python</span><span class="tag">MySQL</span>
+                            <span class="tag">C++</span><span class="tag">HTML/CSS</span>
+                        </div>
                     </div>
-                </div>
-                <div class="stack-box">
-                    <h4 style="color: var(--primary); margin-bottom: 10px;">MARKETING & STRATEGY</h4>
-                    <div class="tag-cloud">
-                        <span class="tag">Social Media Management</span>
-                        <span class="tag">Affiliate Marketing</span>
-                        <span class="tag">Conversion Optimization</span>
-                        <span class="tag">Content Strategy</span>
+                    <div class="stack-box">
+                        <h4 style="color: var(--primary); margin-bottom: 10px;">MARKETING & STRATEGY</h4>
+                        <div class="tag-cloud">
+                            <span class="tag">Social Media Management</span>
+                            <span class="tag">Affiliate Marketing</span>
+                            <span class="tag">Conversion Optimization</span>
+                            <span class="tag">Content Strategy</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -297,12 +302,25 @@
 
     <script>
         // 1. 3D Card Tilt Effect
+        const elContainer = document.getElementById('card-container');
         const card = document.getElementById('tilt-card');
-        document.addEventListener('mousemove', (e) => {
-            const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
-            const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
-            card.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
-        });
+        
+        if(elContainer && card) {
+            elContainer.addEventListener('mousemove', (e) => {
+                const rect = elContainer.getBoundingClientRect();
+                const x = e.clientX - rect.left; 
+                const y = e.clientY - rect.top;
+                
+                const xRotation = -20 * ((y - rect.height / 2) / (rect.height / 2));
+                const yRotation = 20 * ((x - rect.width / 2) / (rect.width / 2));
+                
+                card.style.transform = `rotateX(${xRotation}deg) rotateY(${yRotation}deg)`;
+            });
+            
+            elContainer.addEventListener('mouseleave', () => {
+                card.style.transform = 'rotateX(0deg) rotateY(0deg)';
+            });
+        }
 
         // 2. Scroll Reveal Animation
         const observerOptions = { threshold: 0.15 };
