@@ -33,34 +33,43 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 25px; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 25px; }
 
-        /* Header / Navigation */
-        header {
+        /* Navigation */
+        nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 40px 0;
+            padding: 30px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(1, 8, 17, 0.8);
+            backdrop-filter: blur(10px);
         }
 
-        .back-btn {
+        .logo { font-weight: 800; font-size: 1.5rem; color: var(--text-main); text-decoration: none; }
+        .logo span { color: var(--primary); }
+
+        .nav-links { display: flex; gap: 30px; list-style: none; }
+        .nav-links a {
             text-decoration: none;
             color: var(--text-dim);
             font-size: 0.9rem;
             font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: 0.3s var(--ease);
+            transition: 0.3s;
         }
-        .back-btn:hover { color: var(--primary); transform: translateX(-5px); }
+        .nav-links a:hover { color: var(--primary); }
 
-        .title-area h1 { font-size: 2.5rem; font-weight: 800; }
-        .title-area span { color: var(--primary); }
+        /* Intro Section */
+        .creative-hero {
+            padding: 60px 0 20px 0;
+        }
+        .creative-hero h1 { font-size: clamp(2.2rem, 5vw, 3.5rem); line-height: 1.1; margin-bottom: 15px; }
+        .creative-hero h1 span { color: var(--primary); }
 
-        /* Creative Intro */
         .intro-text {
-            max-width: 600px;
+            max-width: 650px;
             color: var(--text-dim);
             font-size: 1.1rem;
             margin-bottom: 40px;
@@ -69,7 +78,7 @@
         /* Filter Controls */
         .filter-controls {
             display: flex;
-            gap: 15px;
+            gap: 12px;
             margin-bottom: 50px;
             flex-wrap: wrap;
         }
@@ -78,11 +87,11 @@
             background: var(--glass);
             border: 1px solid var(--border);
             color: var(--text-dim);
-            padding: 10px 24px;
-            border-radius: 30px;
+            padding: 10px 22px;
+            border-radius: 12px;
             font-weight: 600;
             cursor: pointer;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             transition: 0.3s var(--ease);
         }
 
@@ -93,11 +102,11 @@
             box-shadow: 0 5px 15px var(--primary-glow);
         }
 
-        /* Portfolio Grid (Masonry-inspired Flex/Grid style) */
+        /* Portfolio Grid System */
         .portfolio-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+            gap: 25px;
             margin-bottom: 80px;
         }
 
@@ -112,7 +121,7 @@
         }
 
         .work-card:hover {
-            transform: translateY(-8px);
+            transform: translateY(-6px);
             border-color: var(--primary);
             box-shadow: 0 15px 35px rgba(0, 142, 229, 0.15);
         }
@@ -120,7 +129,7 @@
         .card-img-wrapper {
             position: relative;
             width: 100%;
-            height: 220px;
+            height: 200px;
             overflow: hidden;
             background: #041c29;
         }
@@ -133,22 +142,23 @@
         }
 
         .work-card:hover .card-img-wrapper img {
-            transform: scale(1.06);
+            transform: scale(1.05);
         }
 
         .badge {
             position: absolute;
             top: 15px;
             left: 15px;
-            background: rgba(1, 8, 17, 0.85);
+            background: rgba(1, 8, 17, 0.9);
             backdrop-filter: blur(5px);
             color: var(--primary);
             border: 1px solid var(--border);
-            padding: 4px 14px;
-            border-radius: 50px;
+            padding: 4px 12px;
+            border-radius: 8px;
             font-size: 0.75rem;
             font-weight: 700;
             text-transform: uppercase;
+            z-index: 2;
         }
 
         .card-content {
@@ -159,7 +169,7 @@
         }
 
         .card-content h3 {
-            font-size: 1.3rem;
+            font-size: 1.25rem;
             margin-bottom: 10px;
             font-weight: 700;
         }
@@ -203,7 +213,7 @@
             border-color: var(--primary);
         }
 
-        /* Details Dynamic Modal */
+        /* Popup Modals */
         .modal {
             position: fixed;
             inset: 0;
@@ -219,15 +229,12 @@
             padding: 20px;
         }
 
-        .modal.open {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
+        .modal.open { opacity: 1; pointer-events: auto; }
+        
         .modal-content {
             background: var(--bg-card);
             border: 1px solid var(--border);
-            max-width: 650px;
+            max-width: 600px;
             width: 100%;
             border-radius: 24px;
             padding: 35px;
@@ -235,10 +242,7 @@
             transform: scale(0.9);
             transition: 0.4s var(--ease);
         }
-
-        .modal.open .modal-content {
-            transform: scale(1);
-        }
+        .modal.open .modal-content { transform: scale(1); }
 
         .close-modal {
             position: absolute;
@@ -249,12 +253,85 @@
             color: var(--text-dim);
             font-size: 1.5rem;
             cursor: pointer;
+            z-index: 10;
             transition: 0.3s;
         }
         .close-modal:hover { color: var(--primary); }
 
-        .modal-body h2 { margin-bottom: 15px; font-size: 1.8rem; }
-        .modal-body img { width: 100%; height: 250px; object-fit: cover; border-radius: 14px; margin-bottom: 20px; border: 1px solid var(--border); }
+        .modal-body h2 { margin-bottom: 15px; font-size: 1.7rem; }
+        
+        /* Swipeable Gallery Elements */
+        .slider-container {
+            position: relative;
+            width: 100%;
+            height: 280px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            border-radius: 14px;
+            border: 1px solid var(--border);
+        }
+
+        .slider-track {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.4s var(--ease);
+        }
+
+        .slide {
+            min-width: 100%;
+            height: 100%;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .slider-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(1, 8, 17, 0.7);
+            border: 1px solid var(--border);
+            color: #fff;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: 0.3s;
+            z-index: 5;
+        }
+        .slider-arrow:hover { background: var(--primary); color: #000; border-color: var(--primary); }
+        .arrow-left { left: 15px; }
+        .arrow-right { right: 15px; }
+
+        .slider-dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: -10px;
+            margin-bottom: 20px;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .dot.active {
+            background: var(--primary);
+            transform: scale(1.2);
+        }
+        
         .modal-body p { color: var(--text-dim); margin-bottom: 25px; }
         
         .modal-cta {
@@ -272,10 +349,13 @@
 
         footer { padding: 60px 0; text-align: center; border-top: 1px solid var(--border); }
 
-        /* Responsive Breakpoints */
-        @media (max-width: 768px) {
+        @media (max-width: 900px) {
+            .nav-links { display: none; }
             .portfolio-grid { grid-template-columns: 1fr; }
-            .title-area h1 { font-size: 2rem; }
+            .creative-hero { text-align: center; }
+            .intro-text { margin-left: auto; margin-right: auto; }
+            .filter-controls { justify-content: center; }
+            .slider-container { height: 200px; }
         }
     </style>
 </head>
@@ -283,129 +363,131 @@
 
     <div class="container">
         
-        <header>
-            <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> Systems Engineering</a>
-            <div class="title-area">
-                <h1>Creative Studio<span>.</span></h1>
-            </div>
-        </header>
+        <!-- Navigation -->
+        <nav>
+            <a href="index.html" class="logo">Sovio<span>.</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#experience">Experience</a></li>
+                <li><a href="index.html#stack">Stack</a></li>
+                <li><a href="creative.html">Creative</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
 
-        <p class="intro-text">
-            Where conversion data dictates aesthetic choices. High-impact content architecture built for communities that buy, click, and scale.
-        </p>
+        <!-- Page Intro Header -->
+        <div class="creative-hero">
+            <h1>Creative Engine<span>.</span></h1>
+            <p class="intro-text">
+                Where technical design blueprints and performance growth frameworks intersect. High-impact solutions configured for visibility and engagement.
+            </p>
+        </div>
 
-        <!-- Category Filters -->
+        <!-- Filter Buttons -->
         <div class="filter-controls">
             <button class="filter-btn active" onclick="filterWork('all')">All Showcases</button>
-            <button class="filter-btn" onclick="filterWork('webdev')">Web Development</button>
-            <button class="filter-btn" onclick="filterWork('smm')">Social Media Management</button>
-            <button class="filter-btn" onclick="filterWork('affiliate')">Affiliate Marketing</button>
+            <button class="filter-btn" onclick="filterWork('webdev')">WebDevelopment</button>
+            <button class="filter-btn" onclick="filterWork('socialmedia')">Social Media</button>
         </div>
 
         <!-- Portfolio Cards Grid -->
         <div class="portfolio-grid">
 
-            <!-- Card 1: Web Development Showcase -->
+            <!-- Card 1: Kielfix Streaming Clone -->
             <div class="work-card" data-category="webdev">
                 <div class="card-img-wrapper">
-                    <span class="badge">Web Dev</span>
-                    <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='250' viewBox='0 0 400 250'><rect width='100%' height='100%' fill='%23041c29'/><text x='50%' y='50%' fill='%23008EE5' font-weight='bold' font-family='sans-serif' font-size='20' text-anchor='middle'>Dynamic Map UI Matrix</text></svg>" alt="Web Development Project">
+                    <span class="badge">Website</span>
+                    <img id="img-kielfix" src="hawkins.png" alt="Kielfix Project Banner">
                 </div>
                 <div class="card-content">
-                    <h3>LAU Heatmap Matrix</h3>
-                    <p>Engineered a high-performance geographic analytics canvas utilizing custom scripts to parse and render localized activity records smoothly.</p>
+                    <h3>Kielfix Streaming Hub</h3>
+                    <p>A high-fidelity front-end media architecture replicating responsive streaming configurations, cross-page navigation, and deep translucent layer UI modules.</p>
                     <div class="card-metrics">
-                        <span class="metric"><i class="fas fa-code"></i> initHeatmap()</span>
-                        <span class="metric"><i class="fas fa-bolt"></i> 60 FPS Render</span>
+                        <span class="metric"><i class="fas fa-cubes"></i> Vanilla Stack</span>
+                        <span class="metric"><i class="fas fa-th"></i> Grid/Flexbox</span>
                     </div>
-                    <button class="view-details-btn" onclick="openModal('LAU Heatmap Matrix', 'Developed a specialized rendering solution optimized for neighborhood-level administrative units. This feature dynamically maps raw data densities across regional zones using zero-latency array processing.', '#')">Inspect Codebase</button>
+                    <button class="view-details-btn" onclick="openModal('Kielfix - Static Streaming Platform Clone', 'Engineered to evaluate structural HTML5 semantic rules across multiple connected views, including a secure-layout landing gate and horizontal dynamic media shelves. Built completely dependency-free with optimization focused on responsive device queries.', 'https://kielfix-netflix-clone.vercel.app/', ['hawkins.png'])">Inspect Structure</button>
                 </div>
             </div>
 
-            <!-- Card 2: SMM Case Study -->
-            <div class="work-card" data-category="smm">
+            <!-- Card 2: TikTok Affiliate (@kaaiiwooo) -->
+            <div class="work-card" data-category="socialmedia">
                 <div class="card-img-wrapper">
-                    <span class="badge">SMM Campaign</span>
-                    <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='250' viewBox='0 0 400 250'><rect width='100%' height='100%' fill='%23041c29'/><text x='50%' y='50%' fill='%23008EE5' font-weight='bold' font-family='sans-serif' font-size='20' text-anchor='middle'>SMM Strategy Layout</text></svg>" alt="Brand Campaign">
+                    <span class="badge">Social Media</span>
+                    <img src="tiktok1.png" alt="TikTok Organic Growth Banner">
                 </div>
                 <div class="card-content">
-                    <h3>SaaS Brand Scale</h3>
-                    <p>Designed a cross-platform visual sequence to translate backend technical benefits into relatable, high-engagement content loops.</p>
+                    <h3>TikTok Affiliate</h3>
+                    <p>Designed structured short-form video sequences engineered to optimize algorithm hooks, compounding watch-time and organic matrix delivery.</p>
                     <div class="card-metrics">
-                        <span class="metric"><i class="fas fa-chart-line"></i> +142% Reach</span>
-                        <span class="metric"><i class="fas fa-users"></i> 12k Organic</span>
+                        <span class="metric"><i class="fab fa-tiktok"></i> @kaaiiwooo</span>
+                        <span class="metric"><i class="fas fa-chart-line"></i> Retention</span>
                     </div>
-                    <button class="view-details-btn" onclick="openModal('SaaS Brand Scale', 'Full optimization execution layout detailing graphic identity transformation, automation triggers for inbound lead collection, and interactive story scripts.', '#')">Review Strategy</button>
+                    <button class="view-details-btn" onclick="openModal('TikTok Affiliate - Viral Retention Mechanics', 'A comprehensive breakdown of short-form identity growth tactics, micro-hook sequencing, and structural audience algorithmic retention matrices designed to drive non-paid targeted affiliate volume.', 'https://www.tiktok.com/@kaaiiwooo', ['tiktok1.png', 'https://images.unsplash.com/photo-1611605698335-8b15d27e03f2?auto=format&fit=crop&w=600&q=80', 'https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=600&q=80'])">Review Strategy</button>
                 </div>
             </div>
 
-            <!-- Card 3: Affiliate Marketing -->
-            <div class="work-card" data-category="affiliate">
+            <!-- Card 3: TikTok Affiliate (@strawberrieslikeme_) -->
+            <div class="work-card" data-category="socialmedia">
                 <div class="card-img-wrapper">
-                    <span class="badge">Affiliate System</span>
-                    <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='250' viewBox='0 0 400 250'><rect width='100%' height='100%' fill='%23041c29'/><text x='50%' y='50%' fill='%23008EE5' font-weight='bold' font-family='sans-serif' font-size='20' text-anchor='middle'>Funnel Map Architecture</text></svg>" alt="Affiliate Funnel">
+                    <span class="badge">Social Media</span>
+                    <img src="tiktok2.png" alt="Conversion Funnel Banner">
                 </div>
                 <div class="card-content">
-                    <h3>High-Ticket Tech Bridge</h3>
-                    <p>Built a content-to-conversion funnel connecting developer tooling products with organic software development circles.</p>
+                    <h3>TikTok Affiliate</h3>
+                    <p>Mapped automated account showcase pathways linking niche video hooks to targeted product commissions, converting impressions to checkout nodes.</p>
                     <div class="card-metrics">
-                        <span class="metric"><i class="fas fa-percentage"></i> 4.8% CR</span>
-                        <span class="metric"><i class="fas fa-wallet"></i> Passive Pipeline</span>
+                        <span class="metric"><i class="fab fa-tiktok"></i> @strawberrieslikeme_</span>
+                        <span class="metric"><i class="fas fa-wallet"></i> Funnel ROI</span>
                     </div>
-                    <button class="view-details-btn" onclick="openModal('High-Ticket Tech Bridge', 'Engineered custom product-matching link bridges using smart data context tracking to identify high-converting platforms.', '#')">Inspect Funnel</button>
-                </div>
-            </div>
-
-            <!-- Card 4: SMM Visual Production -->
-            <div class="work-card" data-category="smm">
-                <div class="card-img-wrapper">
-                    <span class="badge">Content Batching</span>
-                    <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='250' viewBox='0 0 400 250'><rect width='100%' height='100%' fill='%23041c29'/><text x='50%' y='50%' fill='%23008EE5' font-weight='bold' font-family='sans-serif' font-size='20' text-anchor='middle'>Creative Production Grid</text></svg>" alt="Content Asset">
-                </div>
-                <div class="card-content">
-                    <h3>FinTech Aesthetic Engine</h3>
-                    <p>Curated minimalist design languages and content assets designed to simplify difficult financial definitions on Instagram and LinkedIn.</p>
-                    <div class="card-metrics">
-                        <span class="metric"><i class="fas fa-share"></i> 3.2k Saves</span>
-                        <span class="metric"><i class="fas fa-bolt"></i> Speed Matrix</span>
-                    </div>
-                    <button class="view-details-btn" onclick="openModal('FinTech Aesthetic Engine', 'A breakdown of strategic style rules, automated dynamic assets template generation, and graphic palettes implemented across a 90-day campaign rollout.', '#')">View Assets</button>
+                    <button class="view-details-btn" onclick="openModal('TikTok Affiliate - High-Ticket Bridge Funnels', 'Engineered continuous target pipelines linking specific video creative content straight to integrated TikTok Shop affiliate item links using precise market segment matching.', 'https://www.tiktok.com/@strawberrieslikeme_', ['tiktok2.png', 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=600&q=80', 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=600&q=80'])">Inspect Architecture</button>
                 </div>
             </div>
 
         </div>
 
         <footer>
-            <p style="opacity: 0.4; font-size: 0.8rem;">&copy; 2026 Mariel Sobiono. Performance Design Engineered.</p>
+            <p style="opacity: 0.4; font-size: 0.8rem;">&copy; 2026 Mariel Sobiono. Built for Performance.</p>
         </footer>
     </div>
 
-    <!-- Details Interaction Modal -->
+    <!-- Dynamic Popup Modal Overlay with Swipeable Slider Inside -->
     <div class="modal" id="detailsModal">
         <div class="modal-content">
             <button class="close-modal" onclick="closeModal()"><i class="fas fa-times"></i></button>
             <div class="modal-body">
-                <h2 id="modalTitle">Project Title</h2>
-                <img id="modalImg" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='250' viewBox='0 0 600 250'><rect width='100%' height='100%' fill='%23041c29'/></svg>" alt="Preview">
-                <p id="modalDesc">Detailed explanation text will change depending on your selection.</p>
-                <a href="#" id="modalLink" class="modal-cta" target="_blank">Launch Live Blueprint</a>
+                <h2 id="modalTitle">Project Context</h2>
+                
+                <!-- Swipeable Image Track Wrapper -->
+                <div class="slider-container" id="sliderContainer">
+                    <button class="slider-arrow arrow-left" onclick="moveSlide(-1)"><i class="fas fa-chevron-left"></i></button>
+                    <div class="slider-track" id="sliderTrack">
+                        <!-- Dynamic slides inject here -->
+                    </div>
+                    <button class="slider-arrow arrow-right" onclick="moveSlide(1)"><i class="fas fa-chevron-right"></i></button>
+                </div>
+                
+                <!-- Slide Dots Indicator Row -->
+                <div class="slider-dots" id="sliderDots">
+                    <!-- Dynamic dots inject here -->
+                </div>
+
+                <p id="modalDesc">Detailed description text template.</p>
+                <a href="#" id="modalLink" class="modal-cta" target="_blank">Launch Live Account</a>
             </div>
         </div>
     </div>
 
     <script>
-        // Filter Projects Feature
+        // Filters Controller
         function filterWork(category) {
-            // Update active buttons
             const buttons = document.querySelectorAll('.filter-btn');
             buttons.forEach(btn => btn.classList.remove('active'));
             
-            // Find the button that triggered the event to make it active
             if(window.event) {
                 window.event.target.classList.add('active');
             }
 
-            // Toggle cards visibility
             const cards = document.querySelectorAll('.work-card');
             cards.forEach(card => {
                 if (category === 'all' || card.getAttribute('data-category') === category) {
@@ -416,27 +498,111 @@
             });
         }
 
-        // Modal Controls
+        // Global Slider Index Variable
+        let currentSlideIndex = 0;
+        let totalSlides = 0;
+
         const modal = document.getElementById('detailsModal');
         const modalTitle = document.getElementById('modalTitle');
         const modalDesc = document.getElementById('modalDesc');
         const modalLink = document.getElementById('modalLink');
+        const sliderTrack = document.getElementById('sliderTrack');
+        const sliderDots = document.getElementById('sliderDots');
+        const sliderContainer = document.getElementById('sliderContainer');
 
-        function openModal(title, description, linkUrl) {
+        function openModal(title, description, linkUrl, imagesArray) {
             modalTitle.innerText = title;
             modalDesc.innerText = description;
             modalLink.href = linkUrl;
+            
+            // Wipe clean old track nodes and dots indicators
+            sliderTrack.innerHTML = '';
+            sliderDots.innerHTML = '';
+            currentSlideIndex = 0;
+            totalSlides = imagesArray.length;
+
+            // Hide arrows if only 1 image exists
+            const arrows = document.querySelectorAll('.slider-arrow');
+            if(totalSlides <= 1) {
+                arrows.forEach(a => a.style.display = 'none');
+                sliderDots.style.display = 'none';
+            } else {
+                arrows.forEach(a => a.style.display = 'flex');
+                sliderDots.style.display = 'flex';
+            }
+
+            // Build Slider Images DOM and Bottom Navigation Dots
+            imagesArray.forEach((imgUrl, index) => {
+                const slideDiv = document.createElement('div');
+                slideDiv.classList.add('slide');
+                slideDiv.innerHTML = `<img src="${imgUrl}" alt="Showcase Preview ${index + 1}">`;
+                sliderTrack.appendChild(slideDiv);
+
+                const dot = document.createElement('div');
+                dot.classList.add('dot');
+                if(index === 0) dot.classList.add('active');
+                dot.setAttribute('onclick', `goToSlide(${index})`);
+                sliderDots.appendChild(dot);
+            });
+
+            updateSliderPosition();
             modal.classList.add('open');
+        }
+
+        function moveSlide(direction) {
+            currentSlideIndex += direction;
+            if (currentSlideIndex >= totalSlides) currentSlideIndex = 0;
+            if (currentSlideIndex < 0) currentSlideIndex = totalSlides - 1;
+            updateSliderPosition();
+        }
+
+        function goToSlide(index) {
+            currentSlideIndex = index;
+            updateSliderPosition();
+        }
+
+        function updateSliderPosition() {
+            sliderTrack.style.transform = `translateX(-${currentSlideIndex * 100}%)`;
+            
+            const dots = document.querySelectorAll('.dot');
+            dots.forEach((dot, idx) => {
+                if(idx === currentSlideIndex) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
+            });
         }
 
         function closeModal() {
             modal.classList.remove('open');
         }
 
-        // Close modal if user clicks outside content structure
         window.onclick = function(event) {
             if (event.target == modal) {
                 closeModal();
+            }
+        }
+
+        // Add Touch/Swipe Detection Logic for Mobile Screens
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        sliderContainer.addEventListener('touchstart', e => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, {passive: true});
+
+        sliderContainer.addEventListener('touchend', e => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipeGesture();
+        }, {passive: true});
+
+        function handleSwipeGesture() {
+            if (touchStartX - touchEndX > 50) {
+                moveSlide(1); // Swiped Left -> Next Slide
+            }
+            if (touchEndX - touchStartX > 50) {
+                moveSlide(-1); // Swiped Right -> Prev Slide
             }
         }
     </script>
